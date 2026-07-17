@@ -1,0 +1,76 @@
+@media (max-width: 1120px) {
+  .app-header { grid-template-columns: 1fr auto; }
+  .header-progress { grid-column: 1 / -1; grid-row: 2; justify-self: stretch; }
+  .utility-nav { grid-column: 2; grid-row: 1; }
+  .start-hero { grid-template-columns: 1fr; }
+  .hero-copy { max-width: 820px; }
+  .hero-apparatus { min-height: 330px; }
+  .workspace-grid, .prediction-stage { grid-template-columns: 1fr; }
+  .apparatus-comparison { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  body { font-size: 17px; }
+  .app-header { position: static; grid-template-columns: 1fr; gap: 12px; padding: 14px 18px; }
+  .brand-button { width: 100%; }
+  .brand-button small { font-size: 0.65rem; }
+  .utility-nav { grid-column: 1; grid-row: auto; justify-content: stretch; }
+  .utility-nav button { flex: 1; padding-inline: 7px; font-size: 0.7rem; }
+  .header-progress { grid-column: 1; grid-row: auto; }
+  .start-screen, .safety-screen, .tutorial-screen, .final-screen, .mission-screen { width: min(100% - 24px, 100%); padding-top: 32px; }
+  .hero-copy h1 { font-size: clamp(2.1rem, 12vw, 3.2rem); }
+  .hero-copy p { font-size: 1rem; }
+  .hero-actions, .hero-actions button { width: 100%; }
+  .hero-apparatus { min-height: 280px; }
+  .hero-sample { left: 25%; }
+  .hero-reduction { right: 24%; }
+  .start-facts, .final-summary { grid-template-columns: repeat(2, 1fr); }
+  .start-facts div:nth-child(2), .final-summary div:nth-child(2) { border-right: 0; }
+  .start-facts div { border-bottom: 1px solid var(--gray-200); }
+  .tutorial-controls { grid-template-columns: auto 1fr; }
+  .tutorial-controls button { grid-column: 1 / -1; }
+  .mission-intro { align-items: flex-start; flex-direction: column; }
+  .workspace-grid { grid-template-columns: minmax(0, 1fr); }
+  .prediction-options, .evidence-options { grid-template-columns: 1fr; }
+  .apparatus-comparison > div { grid-template-columns: minmax(0, 1fr); }
+  .receiver-panel { border-left: 0; border-top: 1px solid var(--gray-200); padding: 16px 0 0; }
+  .receiver-meter { flex-direction: row-reverse; width: 100%; height: 48px; }
+  .receiver-meter span { border-right: 1px solid var(--gray-200); border-bottom: 0; }
+  .result-strip, .evidence-ledger { grid-template-columns: repeat(2, 1fr); }
+  .result-strip div:nth-child(2), .evidence-ledger div:nth-child(2) { border-right: 0; }
+  .result-strip div, .evidence-ledger div { border-bottom: 1px solid var(--gray-200); }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .brand-mark { width: 34px; height: 40px; }
+  .brand-button strong { font-size: 1rem; }
+  .header-progress { font-size: 0.76rem; }
+  .hero-apparatus { min-height: 230px; }
+  .hero-source, .hero-receiver { bottom: 78px; transform: scale(0.72); transform-origin: bottom; }
+  .hero-apparatus::after { bottom: 70px; }
+  .hero-path { bottom: 104px; }
+  .hero-sample { bottom: 77px; width: 34%; height: 48px; }
+  .hero-reduction { bottom: 77px; width: 48px; height: 94px; }
+  .start-facts, .final-summary, .result-strip, .evidence-ledger { grid-template-columns: 1fr; }
+  .start-facts div, .final-summary div, .result-strip div, .evidence-ledger div { border-right: 0; }
+  .setup-table th, .setup-table td { padding: 12px 8px; font-size: 0.72rem; }
+  .changed-label { display: block; width: fit-content; margin: 4px 0 0; }
+  .apparatus { grid-template-columns: 54px minmax(90px, 1fr) auto 52px 48px; gap: 5px; min-height: 180px; padding-inline: 3px; }
+  .apparatus-source, .apparatus-receiver { height: 64px; }
+  .source-core, .apparatus-receiver > span { inset: 14px; }
+  .apparatus-route { left: 46px; right: 42px; top: 91px; }
+  .reduction-sample { width: 44px; height: 92px; }
+  .gap { height: 90px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  .is-active .vibration-ring { opacity: 0.45; transform: scale(1.12); }
+  .is-active .apparatus-route span { opacity: 1; transform: none; }
+}
+
+@media (forced-colors: active) {
+  .brand-liquid, .hero-path span, .receiver-meter .filled, .apparatus-route span, .mission-number { forced-color-adjust: none; background: CanvasText; }
+  .option-card.selected, .prediction-card.selected, .evidence-card.selected { outline: 3px solid Highlight; }
+}
