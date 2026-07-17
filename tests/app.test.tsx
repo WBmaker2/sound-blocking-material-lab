@@ -1,8 +1,22 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { SoundLabApp } from "../app/components/SoundLabApp";
 
+function enterFirstMission() {
+  fireEvent.click(screen.getByRole("button", { name: "연구 시작" }));
+  for (const checkbox of screen.getAllByRole("checkbox")) {
+    fireEvent.click(checkbox);
+  }
+  fireEvent.click(screen.getByRole("button", { name: "가상 시험 시작" }));
+  fireEvent.click(screen.getByRole("button", { name: "떨림 시작" }));
+  fireEvent.click(screen.getByRole("button", { name: "미션 1 시작" }));
+}
+
 describe("소리 차단 재료 연구소", () => {
+  beforeEach(() => {
+    window.scrollTo = vi.fn();
+  });
+
   it("시작 화면에서 모형과 안전 확인 전에는 미션으로 들어가지 않는다", () => {
     render(<SoundLabApp />);
 
@@ -37,13 +51,7 @@ describe("소리 차단 재료 연구소", () => {
 
   it("안내 활동 뒤 첫 미션에서 두 요소 변경을 막는다", () => {
     render(<SoundLabApp />);
-    fireEvent.click(screen.getByRole("button", { name: "연구 시작" }));
-    for (const checkbox of screen.getAllByRole("checkbox")) {
-      fireEvent.click(checkbox);
-    }
-    fireEvent.click(screen.getByRole("button", { name: "가상 시험 시작" }));
-    fireEvent.click(screen.getByRole("button", { name: "떨림 시작" }));
-    fireEvent.click(screen.getByRole("button", { name: "미션 1 시작" }));
+    enterFirstMission();
 
     fireEvent.click(
       screen.getByRole("radio", {
@@ -61,13 +69,7 @@ describe("소리 차단 재료 연구소", () => {
 
   it("한 요소 선택과 예측 뒤에만 경로와 결과를 공개한다", () => {
     render(<SoundLabApp />);
-    fireEvent.click(screen.getByRole("button", { name: "연구 시작" }));
-    for (const checkbox of screen.getAllByRole("checkbox")) {
-      fireEvent.click(checkbox);
-    }
-    fireEvent.click(screen.getByRole("button", { name: "가상 시험 시작" }));
-    fireEvent.click(screen.getByRole("button", { name: "떨림 시작" }));
-    fireEvent.click(screen.getByRole("button", { name: "미션 1 시작" }));
+    enterFirstMission();
     fireEvent.click(
       screen.getByRole("radio", { name: /강한 떨림으로 바꾸기/ }),
     );
@@ -80,5 +82,65 @@ describe("소리 차단 재료 연구소", () => {
     expect(
       screen.getAllByText(/떨리는 소리원 → 전달 시료 A/).length,
     ).toBeGreaterThan(0);
+  });
+
+  it("새 화면과 비교 단계로 이동할 때 맨 위로 스크롤한다", () => {
+    render(<SoundLabApp />);
+    vi.mocked(window.scrollTo).mockClear();
+
+    fireEvent.click(screen.getByRole("button", { name: "연구 시작" }));
+
+    expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: "auto" });
+  });
+
+  it("진행 중 처음으로 돌아가기 전에 확인한다", () => {
+    render(<SoundLabApp />);
+    enterFirstMission();
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "소리 차단 재료 연구소 차단은 완전한 무음을 뜻하지 않아요",
+      }),
+    );
+
+    expect(
+      screen.getByRole("dialog", { name: "처음부터 다시 할까요?" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "같은 길, 다른 떨림" }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "계속 연구하기" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "소리 차단 재료 연구소 차단은 완전한 무음을 뜻하지 않아요",
+      }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "처음부터 다시 하기" }));
+    expect(
+      screen.getByRole("heading", {
+        name: "소리가 지나가는 길과 줄어드는 조건을 비교해요",
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it("비교 단계가 진행될 때 진행률 값이 증가한다", () => {
+    render(<SoundLabApp />);
+    enterFirstMission();
+    const setupProgress = Number(
+      screen.getByRole("progressbar").getAttribute("aria-valuenow"),
+    );
+
+    fireEvent.click(
+      screen.getByRole("radio", { name: /강한 떨림으로 바꾸기/ }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "예측하러 가기" }));
+    const predictionProgress = Number(
+      screen.getByRole("progressbar").getAttribute("aria-valuenow"),
+    );
+
+    expect(predictionProgress).toBeGreaterThan(setupProgress);
   });
 });

@@ -3,24 +3,30 @@
 import { useEffect, useRef } from "react";
 import { updateHistory } from "../lab/content";
 
-export type DialogKind = "guide" | "teacher" | "updates" | null;
+export type DialogKind = "guide" | "teacher" | "updates" | "restart" | null;
 
 type AppDialogsProps = {
   kind: DialogKind;
   onClose: () => void;
+  onConfirmRestart: () => void;
 };
 
-export function AppDialogs({ kind, onClose }: AppDialogsProps) {
+export function AppDialogs({ kind, onClose, onConfirmRestart }: AppDialogsProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!kind) return;
     closeButtonRef.current?.focus();
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const handleKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
     };
     document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [kind, onClose]);
 
   if (!kind) return null;
@@ -29,6 +35,7 @@ export function AppDialogs({ kind, onClose }: AppDialogsProps) {
     guide: "활동 방법",
     teacher: "교사용 안내",
     updates: "업데이트 내역",
+    restart: "처음부터 다시 할까요?",
   };
 
   return (
@@ -42,9 +49,11 @@ export function AppDialogs({ kind, onClose }: AppDialogsProps) {
       >
         <div className="dialog-header">
           <h2 id="dialog-title">{titles[kind]}</h2>
-          <button ref={closeButtonRef} type="button" onClick={onClose}>
-            닫기
-          </button>
+          {kind !== "restart" && (
+            <button ref={closeButtonRef} type="button" onClick={onClose}>
+              닫기
+            </button>
+          )}
         </div>
 
         {kind === "guide" && (
@@ -74,6 +83,21 @@ export function AppDialogs({ kind, onClose }: AppDialogsProps) {
                 <p>{item.detail}</p>
               </article>
             ))}
+          </div>
+        )}
+
+        {kind === "restart" && (
+          <div className="restart-dialog-copy">
+            <p>지금까지 선택한 비교 기록이 모두 사라져요.</p>
+            <p>실수로 누른 것이라면 계속 연구하기를 선택하세요.</p>
+            <div className="restart-dialog-actions">
+              <button ref={closeButtonRef} className="secondary-button" type="button" onClick={onClose}>
+                계속 연구하기
+              </button>
+              <button className="danger-button" type="button" onClick={onConfirmRestart}>
+                처음부터 다시 하기
+              </button>
+            </div>
           </div>
         )}
       </section>

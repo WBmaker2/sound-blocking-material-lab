@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { compareReceiverBands, guardOneVariableChange, lookupSoundTest, variableLabel } from "../lab/domain";
 import { missions } from "../lab/content";
 import type { MissionRecord, MissionStep, Prediction, SoundTestSetup, StepOption } from "../lab/types";
@@ -12,6 +12,13 @@ import { SafetyScreen, StartScreen } from "./StartAndSafety";
 import { TutorialScreen } from "./TutorialScreen";
 
 type Screen = "start" | "safety" | "tutorial" | "mission" | "final";
+
+const stageProgressIndex: Record<MissionStage, number> = {
+  setup: 0,
+  prediction: 1,
+  reveal: 2,
+  evidence: 3,
+};
 
 export function resolveMissionStep(
   step: MissionStep,
@@ -48,6 +55,10 @@ export function SoundLabApp() {
   const [limitChecked, setLimitChecked] = useState(false);
   const [records, setRecords] = useState<MissionRecord[]>([]);
   const [previousSetup, setPreviousSetup] = useState<SoundTestSetup>();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [screen, missionIndex, stepIndex, stage]);
 
   const mission = missions[missionIndex];
   const rawStep = mission?.steps[stepIndex];
@@ -91,6 +102,11 @@ export function SoundLabApp() {
     setRecords([]);
     setPreviousSetup(undefined);
     resetStep();
+  };
+
+  const requestRestart = () => {
+    if (screen === "start") return;
+    setDialog("restart");
   };
 
   const startMissions = () => {
@@ -146,7 +162,13 @@ export function SoundLabApp() {
     mission: stage === "setup" ? "조건 비교" : stage === "prediction" ? "결과 예측" : stage === "reveal" ? "경로와 결과" : "근거 비교",
     final: "비교 기록",
   };
-  const progress = screen === "start" ? 0 : screen === "safety" ? 6 : screen === "tutorial" ? 12 : screen === "final" ? 100 : 18 + missionIndex * 16 + stepIndex * 5;
+  const completedComparisons = missions
+    .slice(0, missionIndex)
+    .reduce((total, item) => total + item.steps.length, 0) + stepIndex;
+  const missionProgress = Math.round(
+    12 + ((completedComparisons * 4 + stageProgressIndex[stage] + 1) / 24) * 84,
+  );
+  const progress = screen === "start" ? 0 : screen === "safety" ? 6 : screen === "tutorial" ? 12 : screen === "final" ? 100 : missionProgress;
 
   return (
     <div className="app-shell">
@@ -157,7 +179,7 @@ export function SoundLabApp() {
         onOpenGuide={() => setDialog("guide")}
         onOpenTeacher={() => setDialog("teacher")}
         onOpenUpdates={() => setDialog("updates")}
-        onRestart={restart}
+        onRestart={requestRestart}
       />
 
       {screen === "start" && <StartScreen onStart={() => setScreen("safety")} />}
@@ -201,7 +223,14 @@ export function SoundLabApp() {
         <FinalRecord records={records} onRepeat={startMissions} onSafety={() => setScreen("safety")} onRestart={restart} />
       )}
 
-      <AppDialogs kind={dialog} onClose={() => setDialog(null)} />
+      <AppDialogs
+        kind={dialog}
+        onClose={() => setDialog(null)}
+        onConfirmRestart={() => {
+          restart();
+          setDialog(null);
+        }}
+      />
     </div>
   );
 }

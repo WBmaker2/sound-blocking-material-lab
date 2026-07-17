@@ -1,0 +1,24 @@
+{
+  "date": "2026-07-17",
+  "url": "http://localhost",
+  "designScore": "A-",
+  "aiSlopScore": "A",
+  "categoryGrades": {
+    "hierarchy": "A-",
+    "typography": "B+",
+    "spacing": "A-",
+    "color": "A",
+    "interaction": "A-",
+    "responsive": "A-",
+    "content": "A",
+    "motion": "A-",
+    "performanceFeel": "A-"
+  },
+  "findings": [
+    { "id": "FINDING-001", "title": "화면 전환 스크롤 위치", "impact": "high", "status": "verified" },
+    { "id": "FINDING-002", "title": "모바일 헤더 줄바꿈", "impact": "high", "status": "verified" },
+    { "id": "FINDING-003", "title": "진행 기록 즉시 초기화", "impact": "high", "status": "verified" },
+    { "id": "FINDING-004", "title": "단계별 진행률 정체", "impact": "medium", "status": "verified" },
+    { "id": "FINDING-005", "title": "모바일 보조 문구 크기", "impact": "medium", "status": "verified" }
+  ]
+}

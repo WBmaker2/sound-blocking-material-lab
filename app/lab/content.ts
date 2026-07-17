@@ -297,6 +297,11 @@ export const missions: Mission[] = [
 export const updateHistory = [
   {
     date: "2026-07-17",
+    title: "학생 흐름과 모바일 화면 개선",
+    detail: "화면 전환 위치, 단계별 진행률, 모바일 도움말 배치와 실수로 처음부터 돌아가는 동작을 개선했어요.",
+  },
+  {
+    date: "2026-07-17",
     title: "첫 교육용 버전 구현",
     detail: "안내 활동과 5개 미션, 한 변인 비교, 열린 틈 확인, 비교 기록을 만들었어요.",
   },

@@ -19,7 +19,12 @@ export function AppHeader({
 }: AppHeaderProps) {
   return (
     <header className="app-header">
-      <button className="brand-button" type="button" onClick={onRestart}>
+      <button
+        className="brand-button"
+        type="button"
+        aria-label="소리 차단 재료 연구소 차단은 완전한 무음을 뜻하지 않아요"
+        onClick={onRestart}
+      >
         <span className="brand-mark" aria-hidden="true">
           <span className="brand-liquid" />
         </span>
@@ -33,8 +38,15 @@ export function AppHeader({
         <span>{missionLabel}</span>
         <span aria-hidden="true" className="progress-divider" />
         <strong>{stageLabel}</strong>
-        <div className="progress-track" aria-hidden="true">
-          <span style={{ width: `${progress}%` }} />
+        <div
+          className="progress-track"
+          role="progressbar"
+          aria-label="전체 연구 진행률"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={progress}
+        >
+          <span aria-hidden="true" style={{ width: `${progress}%` }} />
         </div>
       </div>
 
