@@ -12,13 +12,15 @@ const rows = [
 export function SetupComparison({
   baseline,
   comparison,
+  invalid = false,
 }: {
   baseline: SoundTestSetup;
   comparison?: SoundTestSetup;
+  invalid?: boolean;
 }) {
   const changed = comparison ? getChangedVariables(baseline, comparison) : [];
   return (
-    <div className="setup-table-wrap">
+    <div className={invalid ? "setup-table-wrap invalid-comparison" : "setup-table-wrap"}>
       <table className="setup-table">
         <caption>기준 조건과 비교 조건</caption>
         <thead>

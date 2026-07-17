@@ -64,15 +64,15 @@ export function ReceiverMeter({ band }: { band: ReceiverBand }) {
   const order: ReceiverBand[] = ["very-high", "high", "medium", "low", "very-low"];
   const activeIndex = order.indexOf(band);
   return (
-    <aside className="receiver-panel" aria-label={`상대 감지 결과: ${receiverLabels[band]}`}>
-      <h3>상대 감지 결과</h3>
+    <aside className="receiver-panel" aria-label={`받은 소리 결과: ${receiverLabels[band]}`}>
+      <h3>받은 소리 결과</h3>
       <strong>{receiverLabels[band]}</strong>
       <div className="receiver-meter" aria-hidden="true">
         {order.map((item, index) => (
           <span className={index >= activeIndex ? "filled" : ""} key={item} />
         ))}
       </div>
-      <p>가상 장치 안에서만 비교하는 단계예요.</p>
+      <p>이 앱 안에서만 서로 비교하는 단계예요.</p>
     </aside>
   );
 }

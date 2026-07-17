@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const origin = `${protocol}://${host}`;
   const title = "소리 차단 재료 연구소";
-  const description = "한 요소씩 바꾸며 소리가 지나가는 길과 줄어드는 조건을 비교하는 초등 과학 학습 앱";
+  const description = "한 가지씩 바꾸며 소리가 지나가는 길과 줄어드는 조건을 비교하는 초등 과학 학습 앱";
 
   return {
     title,

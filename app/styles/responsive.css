@@ -7,6 +7,7 @@
   .hero-apparatus { min-height: 330px; }
   .workspace-grid, .prediction-stage { grid-template-columns: 1fr; }
   .apparatus-comparison { grid-template-columns: 1fr; }
+  .mobile-result-cue { display: block; margin: -4px 0; border-left: 4px solid var(--teal-500); background: var(--teal-150); color: var(--navy-800); padding: 10px 14px; font-size: 0.82rem; font-weight: 800; }
 }
 
 @media (max-width: 760px) {
@@ -41,6 +42,16 @@
   .result-strip, .evidence-ledger { grid-template-columns: repeat(2, 1fr); }
   .result-strip div:nth-child(2), .evidence-ledger div:nth-child(2) { border-right: 0; }
   .result-strip div, .evidence-ledger div { border-bottom: 1px solid var(--gray-200); }
+  .record-table-wrap { overflow: visible; border: 0; background: transparent; }
+  .record-table { display: block; min-width: 0; }
+  .record-table caption { display: block; margin-bottom: 12px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); background: var(--white); }
+  .record-table thead { display: none; }
+  .record-table tbody { display: grid; gap: 14px; }
+  .record-table tbody tr { display: block; overflow: hidden; border: 1px solid var(--gray-200); border-radius: var(--radius-md); background: var(--white); }
+  .record-table tbody th { display: block; border-top: 0; background: var(--cyan-100); font-size: 0.95rem; }
+  .record-table tbody td { display: grid; grid-template-columns: 94px minmax(0, 1fr); gap: 10px; align-items: start; }
+  .record-table tbody td::before { content: attr(data-label); color: var(--teal-700); font-size: 0.78rem; font-weight: 900; }
+  .record-evidence-list { padding-left: 16px; }
   .mission-intro p, .option-card small, .prediction-card small, .model-note, .neutral-note, .reflection-note { font-size: 0.88rem; }
   .restart-dialog-actions { align-items: stretch; flex-direction: column-reverse; }
   .restart-dialog-actions button { width: 100%; }
@@ -79,4 +90,5 @@
 @media (forced-colors: active) {
   .brand-liquid, .hero-path span, .receiver-meter .filled, .apparatus-route span, .mission-number { forced-color-adjust: none; background: CanvasText; }
   .option-card.selected, .prediction-card.selected, .evidence-card.selected { outline: 3px solid Highlight; }
+  .option-card.selected.error { outline-color: Mark; }
 }

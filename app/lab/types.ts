@@ -63,5 +63,6 @@ export type MissionRecord = {
   prediction: Prediction;
   result: Prediction;
   remainingPath: string;
+  evidence: string[];
   modelLimitChecked: boolean;
 };

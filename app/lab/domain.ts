@@ -78,7 +78,7 @@ const soundTestMap = new Map(
 export function lookupSoundTest(setup: SoundTestSetup): SoundTestRecord {
   const found = soundTestMap.get(setupKey(setup));
   if (!found) {
-    throw new Error("허용된 가상 시험 기록이 없어요. 다른 한 요소를 골라 주세요.");
+    throw new Error("허용된 가상 시험 기록이 없어요. 다른 한 가지 조건을 골라 주세요.");
   }
   return found;
 }

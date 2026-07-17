@@ -51,7 +51,7 @@ export function SoundLabApp() {
   const [stage, setStage] = useState<MissionStage>("setup");
   const [selectedOptionId, setSelectedOptionId] = useState("");
   const [prediction, setPrediction] = useState<Prediction>();
-  const [evidence, setEvidence] = useState("");
+  const [selectedEvidence, setSelectedEvidence] = useState<string[]>([]);
   const [limitChecked, setLimitChecked] = useState(false);
   const [records, setRecords] = useState<MissionRecord[]>([]);
   const [previousSetup, setPreviousSetup] = useState<SoundTestSetup>();
@@ -70,6 +70,9 @@ export function SoundLabApp() {
   const guard = step && selectedOption
     ? guardOneVariableChange(step.baseline, selectedOption.setup)
     : undefined;
+  const evidenceComplete = Boolean(
+    step?.evidenceOptions.every((item) => selectedEvidence.includes(item)),
+  );
 
   const testResult = useMemo(() => {
     if (!step || !selectedOption || !guard?.valid) return undefined;
@@ -89,7 +92,7 @@ export function SoundLabApp() {
     setStage("setup");
     setSelectedOptionId("");
     setPrediction(undefined);
-    setEvidence("");
+    setSelectedEvidence([]);
     setLimitChecked(false);
   };
 
@@ -119,7 +122,10 @@ export function SoundLabApp() {
   };
 
   const completeComparison = () => {
-    if (!mission || !step || !selectedOption || !prediction || !testResult) return;
+    if (
+      !mission || !step || !selectedOption || !prediction || !testResult
+      || !evidenceComplete || !limitChecked
+    ) return;
     const remainingPath = testResult.comparisonRecord.openGapIds.length
       ? "열린 틈 경로가 남음"
       : "시료를 지나는 경로가 남음";
@@ -132,7 +138,8 @@ export function SoundLabApp() {
         prediction,
         result: testResult.result,
         remainingPath,
-        modelLimitChecked: true,
+        evidence: [...selectedEvidence],
+        modelLimitChecked: limitChecked,
       },
     ]);
 
@@ -200,9 +207,11 @@ export function SoundLabApp() {
           stage={stage}
           selectedOption={selectedOption as StepOption | undefined}
           guardMessage={guard?.message ?? ""}
+          changedCount={guard?.changed.length ?? 0}
           canContinueSetup={Boolean(guard?.valid)}
           prediction={prediction}
-          evidence={evidence}
+          selectedEvidence={selectedEvidence}
+          evidenceComplete={evidenceComplete}
           limitChecked={limitChecked}
           baselineRecord={testResult?.baselineRecord}
           comparisonRecord={testResult?.comparisonRecord}
@@ -213,7 +222,11 @@ export function SoundLabApp() {
           onPrediction={setPrediction}
           onReveal={() => setStage("reveal")}
           onOpenEvidence={() => setStage("evidence")}
-          onEvidence={setEvidence}
+          onEvidence={(item) => setSelectedEvidence((current) =>
+            current.includes(item)
+              ? current.filter((selected) => selected !== item)
+              : [...current, item],
+          )}
           onLimitChecked={setLimitChecked}
           onComplete={completeComparison}
           completeLabel={stepIndex < mission.steps.length - 1 ? "2차 비교로" : missionIndex < missions.length - 1 ? "다음 미션으로" : "비교 기록 보기"}

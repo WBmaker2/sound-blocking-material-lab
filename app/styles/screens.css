@@ -47,9 +47,11 @@
 .final-summary strong { font-size: 1rem; }
 .final-summary span { color: var(--gray-650); font-size: 0.76rem; }
 .record-table-wrap { overflow-x: auto; border: 1px solid var(--gray-200); border-radius: var(--radius-md); background: var(--white); }
-.record-table { width: 100%; border-collapse: collapse; min-width: 780px; }
+.record-table { width: 100%; border-collapse: collapse; min-width: 980px; }
 .record-table caption { text-align: left; font-weight: 900; padding: 18px; }
 .record-table th, .record-table td { border-top: 1px solid var(--gray-200); padding: 14px; text-align: left; font-size: 0.8rem; }
 .record-table thead th { background: var(--gray-50); }
+.record-evidence-list { margin: 0; padding-left: 18px; color: var(--gray-650); }
+.record-evidence-list li + li { margin-top: 4px; }
 .final-screen .model-note { margin-top: 22px; }
 .final-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }

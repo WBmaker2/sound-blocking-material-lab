@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { FinalRecord } from "../app/components/FinalRecord";
 import { SoundLabApp } from "../app/components/SoundLabApp";
 
 function enterFirstMission() {
@@ -10,6 +11,19 @@ function enterFirstMission() {
   fireEvent.click(screen.getByRole("button", { name: "가상 시험 시작" }));
   fireEvent.click(screen.getByRole("button", { name: "떨림 시작" }));
   fireEvent.click(screen.getByRole("button", { name: "미션 1 시작" }));
+}
+
+function enterFirstEvidenceStage() {
+  enterFirstMission();
+  fireEvent.click(
+    screen.getByRole("radio", { name: /강한 떨림으로 바꾸기/ }),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "예측하러 가기" }));
+  fireEvent.click(screen.getByRole("radio", { name: "높아짐" }));
+  fireEvent.click(screen.getByRole("button", { name: "가상 시험 보기" }));
+  fireEvent.click(
+    screen.getByRole("button", { name: "결과와 근거 비교하기" }),
+  );
 }
 
 describe("소리 차단 재료 연구소", () => {
@@ -62,6 +76,12 @@ describe("소리 차단 재료 연구소", () => {
     expect(
       screen.getByText("무엇 때문에 달라졌는지 알기 어려워요. 하나만 바꿔요."),
     ).toBeInTheDocument();
+    expect(screen.getByText("지금은 2가지가 바뀌었어요.")).toBeInTheDocument();
+    expect(
+      screen.getByRole("radio", { name: /강한 떨림과 시료 B 함께 바꾸기/ }).closest("label"),
+    ).toHaveClass("error");
+    expect(screen.getAllByText("바뀜")[0].closest("tr")).toHaveClass("changed-row");
+    expect(screen.getAllByText("바뀜")[0].closest("tr")).not.toHaveClass("valid");
     expect(
       screen.getByRole("button", { name: "예측하러 가기" }),
     ).toBeDisabled();
@@ -82,6 +102,55 @@ describe("소리 차단 재료 연구소", () => {
     expect(
       screen.getAllByText(/떨리는 소리원 → 전달 시료 A/).length,
     ).toBeGreaterThan(0);
+    expect(
+      screen.getByText("① 기준 보기 → ② 비교 보기 → ③ 달라진 점 확인"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("아래로 내려 비교 조건도 살펴봐요."),
+    ).toBeInTheDocument();
+  });
+
+  it("맞는 근거 두 개와 모형 한계를 모두 확인해야 비교를 기록한다", () => {
+    render(<SoundLabApp />);
+    enterFirstEvidenceStage();
+
+    expect(
+      screen.getByRole("heading", { name: "맞는 근거를 모두 찾아요" }),
+    ).toBeInTheDocument();
+    const evidenceChecks = screen.getAllByRole("checkbox").filter((item) =>
+      item.closest("label")?.classList.contains("evidence-card"),
+    );
+    expect(evidenceChecks).toHaveLength(2);
+    expect(screen.getByRole("button", { name: "다음 미션으로" })).toBeDisabled();
+
+    fireEvent.click(evidenceChecks[0]);
+    expect(screen.getByText("맞는 근거가 하나 더 있어요.")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "다음 미션으로" })).toBeDisabled();
+
+    fireEvent.click(evidenceChecks[1]);
+    expect(screen.getByRole("button", { name: "다음 미션으로" })).toBeDisabled();
+    fireEvent.click(
+      screen.getByRole("checkbox", {
+        name: /이 결과는 이 가상 시험 안에서만 비교해요/,
+      }),
+    );
+    expect(screen.getByRole("button", { name: "다음 미션으로" })).toBeEnabled();
+  });
+
+  it("학생용 결과 용어와 최신 업데이트 내역을 보여 준다", () => {
+    render(<SoundLabApp />);
+    enterFirstMission();
+    fireEvent.click(
+      screen.getByRole("radio", { name: /강한 떨림으로 바꾸기/ }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "예측하러 가기" }));
+
+    expect(
+      screen.getByRole("heading", { name: "수신기가 받은 소리 단계는 어떻게 될까요?" }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "업데이트 내역" }));
+    expect(screen.getByText("2026-07-18")).toBeInTheDocument();
   });
 
   it("새 화면과 비교 단계로 이동할 때 맨 위로 스크롤한다", () => {
@@ -142,5 +211,35 @@ describe("소리 차단 재료 연구소", () => {
     );
 
     expect(predictionProgress).toBeGreaterThan(setupProgress);
+  });
+
+  it("최종 기록에 확인한 근거 두 개를 모두 남긴다", () => {
+    render(
+      <FinalRecord
+        records={[{
+          missionId: "source-strength-one-variable",
+          missionTitle: "같은 길, 다른 떨림",
+          changedLabel: "소리원 세기",
+          prediction: "higher",
+          result: "higher",
+          remainingPath: "시료를 지나는 경로가 남음",
+          evidence: ["소리원 떨림 세기만 달라졌어요.", "높낮이와 경로는 그대로예요."],
+          modelLimitChecked: true,
+        }]}
+        onRepeat={vi.fn()}
+        onSafety={vi.fn()}
+        onRestart={vi.fn()}
+      />,
+    );
+
+    expect(
+      screen.getByText("소리원 떨림 세기만 달라졌어요."),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("높낮이와 경로는 그대로예요."),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("소리원 떨림 세기만 달라졌어요.").closest("td"),
+    ).toHaveAttribute("data-label", "확인한 근거");
   });
 });

@@ -59,7 +59,7 @@ export function AppDialogs({ kind, onClose, onConfirmRestart }: AppDialogsProps)
         {kind === "guide" && (
           <ol className="dialog-list">
             <li>기준 조건을 먼저 읽어요.</li>
-            <li>비교 조건에서는 한 요소만 바꿔요.</li>
+            <li>비교 조건에서는 한 가지만 바꿔요.</li>
             <li>결과를 보기 전에 낮아짐·같음·높아짐을 예상해요.</li>
             <li>경로와 열린 틈을 확인하고 근거를 골라요.</li>
           </ol>
@@ -67,8 +67,8 @@ export function AppDialogs({ kind, onClose, onConfirmRestart }: AppDialogsProps)
 
         {kind === "teacher" && (
           <div className="dialog-copy">
-            <p>가상 시료와 상대 감지 단계는 실제 재료 측정값이나 제품 성능이 아닙니다.</p>
-            <p>예측 적중보다 한 요소만 바꾸고 남은 경로를 설명하는 과정을 관찰해 주세요.</p>
+            <p>가상 시료와 수신기가 받은 소리 단계는 실제 재료 측정값이나 제품 성능이 아닙니다.</p>
+            <p>예측 적중보다 한 가지만 바꾸고 남은 경로를 설명하는 과정을 관찰해 주세요.</p>
             <p>실제 확장 활동은 작은 소리와 안전한 재료를 사용해 교사 감독 아래 진행해 주세요.</p>
             <p>새로고침하면 학생의 진행 기록은 초기화됩니다.</p>
           </div>

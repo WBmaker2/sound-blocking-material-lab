@@ -13,12 +13,12 @@ export function FinalRecord({ records, onRepeat, onSafety, onRestart }: FinalRec
     <main className="final-screen">
       <div className="section-heading">
         <h1>소리 전달 비교 기록</h1>
-        <p>정답 수 대신 한 요소를 통제하고 경로를 확인한 과정을 모았어요.</p>
+        <p>정답 개수보다, 한 가지만 바꾸고 소리 길을 살핀 과정을 모았어요.</p>
       </div>
 
       <div className="final-summary">
         <div><strong>{records.length}</strong><span>완료한 비교</span></div>
-        <div><strong>한 요소씩</strong><span>조건을 바꾸었어요</span></div>
+        <div><strong>한 가지씩</strong><span>조건을 바꾸었어요</span></div>
         <div><strong>경로 확인</strong><span>남은 길을 근거로 보았어요</span></div>
         <div><strong>모형 한계</strong><span>실제 성능이 아님을 확인했어요</span></div>
       </div>
@@ -31,18 +31,24 @@ export function FinalRecord({ records, onRepeat, onSafety, onRestart }: FinalRec
               <th scope="col">미션</th>
               <th scope="col">바꾼 요소</th>
               <th scope="col">예측</th>
-              <th scope="col">상대 결과</th>
+              <th scope="col">달라진 결과</th>
               <th scope="col">남은 경로</th>
+              <th scope="col">확인한 근거</th>
             </tr>
           </thead>
           <tbody>
             {records.map((record, index) => (
               <tr key={`${record.missionId}-${index}`}>
                 <th scope="row">{record.missionTitle}</th>
-                <td>{record.changedLabel}</td>
-                <td>{predictionLabels[record.prediction]}</td>
-                <td>{predictionLabels[record.result]}</td>
-                <td>{record.remainingPath}</td>
+                <td data-label="바꾼 것">{record.changedLabel}</td>
+                <td data-label="예측">{predictionLabels[record.prediction]}</td>
+                <td data-label="달라진 결과">{predictionLabels[record.result]}</td>
+                <td data-label="남은 경로">{record.remainingPath}</td>
+                <td data-label="확인한 근거">
+                  <ul className="record-evidence-list">
+                    {record.evidence.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </td>
               </tr>
             ))}
           </tbody>

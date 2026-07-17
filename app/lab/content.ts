@@ -180,18 +180,18 @@ export const missions: Mission[] = [
     id: "source-strength-one-variable",
     number: 1,
     title: "같은 길, 다른 떨림",
-    focus: "같은 높낮이와 경로에서 소리원 떨림 세기만 비교해요.",
+    focus: "높낮이와 길은 그대로 두고, 소리원의 떨림 세기만 바꿔요.",
     fixedConditions: ["같은 높낮이", "전달 시료 A", "줄임 시료 없음", "고정 배치"],
     steps: [
       {
         id: "source-strength",
         title: "소리원 하나만 바꾸기",
-        question: "강한 떨림으로 바꾸면 상대 감지 단계는 어떻게 될까요?",
+        question: "강한 떨림으로 바꾸면 받은 소리 단계는 어떻게 될까요?",
         baseline: { sourceId: "weak", pathSampleId: "sample-a", reductionTreatmentId: "none", placementId: "standard" },
         allowedVariable: "sourceId",
         options: [
           { id: "strong-only", label: "강한 떨림으로 바꾸기", description: "소리원 세기만 바꿔요.", setup: { sourceId: "strong", pathSampleId: "sample-a", reductionTreatmentId: "none", placementId: "standard" } },
-          { id: "two-at-once", label: "강한 떨림과 시료 B 함께 바꾸기", description: "두 요소가 함께 바뀌는지 확인해 보세요.", setup: { sourceId: "strong", pathSampleId: "sample-b", reductionTreatmentId: "none", placementId: "standard" }, teachingTrap: true },
+          { id: "two-at-once", label: "강한 떨림과 시료 B 함께 바꾸기", description: "두 가지가 함께 바뀌는지 확인해 보세요.", setup: { sourceId: "strong", pathSampleId: "sample-b", reductionTreatmentId: "none", placementId: "standard" }, teachingTrap: true },
         ],
         evidenceOptions: ["소리원 떨림 세기만 달라졌어요.", "높낮이와 경로는 그대로예요."],
       },
@@ -222,13 +222,13 @@ export const missions: Mission[] = [
     id: "reduction-sample-comparison",
     number: 3,
     title: "같은 길에 줄임 시료 덧대기",
-    focus: "다른 조건은 고정하고 줄임 시료만 바꿔요.",
+    focus: "다른 것은 그대로 두고 줄임 시료만 바꿔요.",
     fixedConditions: ["강한 떨림", "전달 시료 B", "고정 배치", "같은 높낮이"],
     steps: [
       {
         id: "reduction-sample",
         title: "줄임 시료 하나만 바꾸기",
-        question: "줄임 시료를 덧대면 상대 감지 단계는 어떻게 될까요?",
+        question: "줄임 시료를 덧대면 받은 소리 단계는 어떻게 될까요?",
         baseline: { sourceId: "strong", pathSampleId: "sample-b", reductionTreatmentId: "none", placementId: "standard" },
         allowedVariable: "reductionTreatmentId",
         options: [
@@ -263,7 +263,7 @@ export const missions: Mission[] = [
     id: "two-step-quiet-room-redesign",
     number: 5,
     title: "조용한 관찰실 재설계",
-    focus: "두 번 비교하되, 매번 한 요소만 바꿔요.",
+    focus: "두 번 비교하되, 매번 한 가지만 바꿔요.",
     fixedConditions: ["강한 떨림", "같은 높낮이", "같은 거리", "가상 시료만 사용"],
     steps: [
       {
@@ -288,13 +288,18 @@ export const missions: Mission[] = [
           { id: "redesign-gap-q", label: "틈을 줄인 배치로 바꾸기", description: "앞에서 고른 줄임 시료를 유지해요.", setup: { sourceId: "strong", pathSampleId: "sample-b", reductionTreatmentId: "sample-q", placementId: "reduced-gap" } },
           { id: "redesign-path-q", label: "전달 시료 C로 바꾸기", description: "배치와 줄임 시료는 유지해요.", setup: { sourceId: "strong", pathSampleId: "sample-c", reductionTreatmentId: "sample-q", placementId: "open-gap" } },
         ],
-        evidenceOptions: ["비교할 때마다 한 요소만 바꿨어요.", "더 작게 표시되어도 실제 안전을 뜻하지 않아요."],
+        evidenceOptions: ["비교할 때마다 한 가지만 바꿨어요.", "더 작게 표시되어도 실제 안전을 뜻하지 않아요."],
       },
     ],
   },
 ];
 
 export const updateHistory = [
+  {
+    date: "2026-07-18",
+    title: "초등학생용 근거와 결과 화면 개선",
+    detail: "맞는 근거를 모두 고르게 바꾸고, 어려운 말을 줄였으며, 오류 색과 모바일 결과 읽기 순서를 더 분명하게 만들었어요.",
+  },
   {
     date: "2026-07-17",
     title: "학생 흐름과 모바일 화면 개선",
@@ -308,6 +313,6 @@ export const updateHistory = [
   {
     date: "2026-07-17",
     title: "기획 기준 반영",
-    detail: "가상 시료와 상대 감지 단계의 한계를 학생용 문장으로 정리했어요.",
+    detail: "가상 시료와 받은 소리 단계의 한계를 학생용 문장으로 정리했어요.",
   },
 ];
