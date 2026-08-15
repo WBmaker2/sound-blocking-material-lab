@@ -28,8 +28,8 @@ test("server-renders the educational app shell and metadata", async () => {
   const html = await response.text();
   assert.match(html, /<html[^>]*lang="ko"/i);
   assert.match(html, /<title>소리 차단 재료 연구소<\/title>/i);
-  assert.match(html, /소리가 지나가는 길과 줄어드는 조건을 비교해요/);
-  assert.match(html, /연구 시작/);
+  assert.match(html, /소리가 지나가는 길을 찾아봐요/);
+  assert.match(html, /활동 시작/);
   assert.match(html, /업데이트 내역/);
   assert.match(html, /http:\/\/localhost\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|Building your site|react-loading-skeleton/i);

@@ -22,7 +22,7 @@ export function AppHeader({
       <button
         className="brand-button"
         type="button"
-        aria-label="소리 차단 재료 연구소 차단은 완전한 무음을 뜻하지 않아요"
+        aria-label="소리 차단 재료 연구소 소리가 완전히 사라진다는 뜻은 아니에요"
         onClick={onRestart}
       >
         <span className="brand-mark" aria-hidden="true">
@@ -30,7 +30,7 @@ export function AppHeader({
         </span>
         <span>
           <strong>소리 차단 재료 연구소</strong>
-          <small>차단은 완전한 무음을 뜻하지 않아요</small>
+          <small>소리가 완전히 사라진다는 뜻은 아니에요</small>
         </span>
       </button>
 

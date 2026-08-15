@@ -15,10 +15,10 @@ const variableKeys: VariableKey[] = [
 ];
 
 const variableLabels: Record<VariableKey, string> = {
-  sourceId: "소리원 세기",
-  pathSampleId: "전달 시료",
-  reductionTreatmentId: "줄임 시료",
-  placementId: "배치",
+  sourceId: "소리 내는 곳",
+  pathSampleId: "재료 모형",
+  reductionTreatmentId: "덧댄 모형",
+  placementId: "놓는 방법",
 };
 
 const bandOrder: ReceiverBand[] = [
@@ -52,7 +52,7 @@ export function guardOneVariableChange(
     return {
       valid: false as const,
       changed,
-      message: "무엇 때문에 달라졌는지 알기 어려워요. 하나만 바꿔요.",
+      message: "무엇 때문인지 알기 어려워요. 한 가지만 바꿔요.",
     };
   }
   return {
@@ -78,7 +78,7 @@ const soundTestMap = new Map(
 export function lookupSoundTest(setup: SoundTestSetup): SoundTestRecord {
   const found = soundTestMap.get(setupKey(setup));
   if (!found) {
-    throw new Error("허용된 가상 시험 기록이 없어요. 다른 한 가지 조건을 골라 주세요.");
+    throw new Error("허용된 모형 조합 기록이 없어요. 다른 한 가지를 골라 주세요.");
   }
   return found;
 }

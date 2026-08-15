@@ -19,8 +19,8 @@ export function SoundPathDiagram({
   const reducedGap = setup.placementId === "reduced-gap";
   const waveBand: ReceiverBand = record?.receiverBand ?? (setup.sourceId === "strong" ? "high" : "medium");
   const waveDescription = record
-    ? `${receiverLabels[waveBand]} · 막대 높이로 가상 단계를 보여 줘요.`
-    : "파동이 왼쪽에서 오른쪽으로 이동하는 가상 표시예요.";
+    ? `${receiverLabels[waveBand]} · 막대 높이로 크기를 보여 줘요.`
+    : "파동이 왼쪽에서 오른쪽으로 움직이는 컴퓨터 모형 표시예요.";
 
   return (
     <figure className="path-figure">
@@ -38,7 +38,7 @@ export function SoundPathDiagram({
           <span className="source-core" />
           <span className="vibration-ring ring-one" />
           <span className="vibration-ring ring-two" />
-          <small>소리원</small>
+          <small>소리 내는 곳</small>
         </div>
         <div className="apparatus-route" aria-hidden="true">
           <div className="wave-rail">
@@ -61,7 +61,7 @@ export function SoundPathDiagram({
         </div>
         <div className="apparatus-receiver">
           <span />
-          <small>수신기</small>
+          <small>소리 받는 곳</small>
         </div>
       </div>
       <div className="wave-readout" aria-live="polite">
@@ -70,7 +70,7 @@ export function SoundPathDiagram({
       </div>
       {record && (
         <p className="path-text">
-          <strong>전달 경로:</strong> {record.activePathSegments.join(" → ")}
+          <strong>소리가 지난 길:</strong> {record.activePathSegments.join(" → ")}
         </p>
       )}
     </figure>
@@ -81,15 +81,15 @@ export function ReceiverMeter({ band }: { band: ReceiverBand }) {
   const order: ReceiverBand[] = ["very-high", "high", "medium", "low", "very-low"];
   const activeIndex = order.indexOf(band);
   return (
-    <aside className="receiver-panel" aria-label={`받은 소리 결과: ${receiverLabels[band]}`}>
-      <h3>받은 소리 결과</h3>
+    <aside className="receiver-panel" aria-label={`소리 받는 곳에 도착한 크기: ${receiverLabels[band]}`}>
+      <h3>도착한 소리 크기</h3>
       <strong>{receiverLabels[band]}</strong>
       <div className="receiver-meter" data-band={band} aria-hidden="true">
         {order.map((item, index) => (
           <span className={index >= activeIndex ? "filled" : ""} key={item} />
         ))}
       </div>
-      <p>이 앱 안에서만 서로 비교하는 단계예요.</p>
+      <p>이 컴퓨터 모형 안에서만 비교해요.</p>
     </aside>
   );
 }

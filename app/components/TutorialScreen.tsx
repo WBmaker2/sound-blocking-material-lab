@@ -17,16 +17,16 @@ export function TutorialScreen({ vibrating, onToggle, onContinue }: TutorialScre
   return (
     <main className="tutorial-screen">
       <div className="section-heading">
-        <h1>안내 활동: 떨림에서 시작해요</h1>
-        <p>소리원이 멈춘 때와 떨리는 때를 번갈아 살펴보세요.</p>
+        <h1>연습: 떨림에서 시작해요</h1>
+        <p>소리 내는 곳이 멈출 때와 떨릴 때를 번갈아 살펴보세요.</p>
       </div>
 
       <section className="tutorial-card">
         <div className="tutorial-controls">
           <span className={vibrating ? "status-dot active" : "status-dot"} />
           <div>
-            <strong>{vibrating ? "소리원이 떨림 중이에요" : "소리원이 멈춰 있어요"}</strong>
-            <p>{vibrating ? "소리의 떨림이 길을 따라 움직이기 시작했어요." : "아직 소리의 떨림이 시작되지 않았어요."}</p>
+            <strong>{vibrating ? "소리 내는 곳이 떨리고 있어요" : "소리 내는 곳이 멈춰 있어요"}</strong>
+            <p>{vibrating ? "떨림이 길을 따라 움직이기 시작했어요." : "아직 떨림이 시작되지 않았어요."}</p>
           </div>
           <button className={vibrating ? "secondary-button" : "secondary-button gi-pulse"} type="button" onClick={onToggle}>
             {vibrating ? "떨림 멈추기" : "떨림 시작"}
@@ -36,7 +36,7 @@ export function TutorialScreen({ vibrating, onToggle, onContinue }: TutorialScre
       </section>
 
       <aside className="model-note">
-        이 모형에서는 소리원이 떨려야 소리의 길이 보여요. 실제 물체를 살펴본 결과는 아니에요.
+        이 모형에서는 소리 내는 곳이 떨려야 소리가 가는 길이 보여요. 실제 물체를 잰 결과는 아니에요.
       </aside>
       <button className="primary-button gi-pulse" type="button" disabled={!vibrating} onClick={onContinue}>
         미션 1 시작

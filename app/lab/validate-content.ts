@@ -11,7 +11,7 @@ export function validateLearningContent(): string[] {
     if (record.activePathSegments.length === 0) {
       errors.push(`활성 경로 없음: ${record.id}`);
     }
-    if (record.openGapIds.length > 0 && !record.activePathSegments.includes("열린 틈 경로")) {
+    if (record.openGapIds.length > 0 && !record.activePathSegments.includes("열린 틈")) {
       errors.push(`열린 틈 경로 설명 누락: ${record.id}`);
     }
   }

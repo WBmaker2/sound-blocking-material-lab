@@ -23,7 +23,7 @@ describe("한 변인 통제", () => {
     expect(guardOneVariableChange(baseline, comparison)).toEqual({
       valid: true,
       changed: ["sourceId"],
-      message: "소리원 세기만 바뀌었어요.",
+      message: "소리 내는 곳만 바뀌었어요.",
     });
   });
 
@@ -45,7 +45,7 @@ describe("한 변인 통제", () => {
     expect(guardOneVariableChange(baseline, comparison)).toMatchObject({
       valid: false,
       changed: ["sourceId", "pathSampleId"],
-      message: "무엇 때문에 달라졌는지 알기 어려워요. 하나만 바꿔요.",
+      message: "무엇 때문인지 알기 어려워요. 한 가지만 바꿔요.",
     });
   });
 });
@@ -56,11 +56,11 @@ describe("검수된 가상 시험 조회", () => {
 
     expect(record.receiverBand).toBe("low");
     expect(record.activePathSegments).toEqual([
-      "떨리는 소리원",
-      "전달 시료 A",
-      "가상 수신기",
+      "소리 내는 곳",
+      "재료 모형 A",
+      "소리 받는 곳",
     ]);
-    expect(record.modelLimitNote).toContain("가상 시험");
+    expect(record.modelLimitNote).toContain("컴퓨터 모형");
   });
 
   it("허용되지 않은 조합을 계산으로 추정하지 않는다", () => {
@@ -71,7 +71,7 @@ describe("검수된 가상 시험 조회", () => {
         reductionTreatmentId: "sample-p",
         placementId: "reduced-gap",
       }),
-    ).toThrowError(/허용된 가상 시험 기록이 없어요/);
+    ).toThrowError(/허용된 모형 조합 기록이 없어요/);
   });
 
   it("상대 단계는 낮아짐·같음·높아짐으로만 비교한다", () => {

@@ -3,10 +3,10 @@ import { getChangedVariables } from "../lab/domain";
 import type { SoundTestSetup } from "../lab/types";
 
 const rows = [
-  ["sourceId", "소리원"],
-  ["pathSampleId", "전달 시료"],
-  ["reductionTreatmentId", "줄임 시료"],
-  ["placementId", "배치"],
+  ["sourceId", "소리 내는 곳"],
+  ["pathSampleId", "재료 모형"],
+  ["reductionTreatmentId", "덧댄 모형"],
+  ["placementId", "놓는 방법"],
 ] as const;
 
 export function SetupComparison({
@@ -22,10 +22,10 @@ export function SetupComparison({
   return (
     <div className={invalid ? "setup-table-wrap invalid-comparison" : "setup-table-wrap"}>
       <table className="setup-table">
-        <caption>기준 조건과 비교 조건</caption>
+        <caption>그대로 둔 것과 바꾼 것</caption>
         <thead>
           <tr>
-            <th scope="col">조건</th>
+            <th scope="col">항목</th>
             <th scope="col">기준</th>
             <th scope="col">비교</th>
           </tr>

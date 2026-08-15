@@ -127,8 +127,8 @@ export function SoundLabApp() {
       || !evidenceComplete || !limitChecked
     ) return;
     const remainingPath = testResult.comparisonRecord.openGapIds.length
-      ? "열린 틈 경로가 남음"
-      : "시료를 지나는 경로가 남음";
+      ? "열린 틈이 남음"
+      : "재료 모형을 지나는 길이 남음";
     setRecords((current) => [
       ...current,
       {
@@ -161,13 +161,13 @@ export function SoundLabApp() {
     setScreen("final");
   };
 
-  const missionLabel = screen === "mission" ? `미션 ${missionIndex + 1}/5` : screen === "final" ? "연구 완료" : "준비 단계";
+  const missionLabel = screen === "mission" ? `미션 ${missionIndex + 1}/5` : screen === "final" ? "기록 완료" : "시작 전";
   const stageLabels: Record<Screen, string> = {
-    start: "연구 소개",
-    safety: "모형과 안전",
-    tutorial: "안내 활동",
-    mission: stage === "setup" ? "조건 비교" : stage === "prediction" ? "결과 예측" : stage === "reveal" ? "경로와 결과" : "근거 비교",
-    final: "비교 기록",
+    start: "활동 소개",
+    safety: "약속 확인",
+    tutorial: "연습",
+    mission: stage === "setup" ? "바꿀 것 고르기" : stage === "prediction" ? "먼저 생각하기" : stage === "reveal" ? "길과 결과" : "왜 그런지 찾기",
+    final: "기록 보기",
   };
   const completedComparisons = missions
     .slice(0, missionIndex)
@@ -229,7 +229,7 @@ export function SoundLabApp() {
           )}
           onLimitChecked={setLimitChecked}
           onComplete={completeComparison}
-          completeLabel={stepIndex < mission.steps.length - 1 ? "2차 비교로" : missionIndex < missions.length - 1 ? "다음 미션으로" : "비교 기록 보기"}
+          completeLabel={stepIndex < mission.steps.length - 1 ? "두 번째 비교로" : missionIndex < missions.length - 1 ? "다음 미션으로" : "기록 보기"}
         />
       )}
       {screen === "final" && (
