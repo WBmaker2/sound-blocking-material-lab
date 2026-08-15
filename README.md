@@ -24,6 +24,16 @@ npm run build
 
 새로고침하면 진행 기록이 초기화됩니다. 앱 시작 뒤 외부 API, 원격 이미지, 분석 도구를 요청하지 않습니다.
 
+## GitHub Pages 배포
+
+서버·로그인·외부 API 없이 실행되는 학습 화면은 GitHub Pages에서 제공합니다.
+
+배포 주소: https://wbmaker2.github.io/sound-blocking-material-lab/
+
+```bash
+npm run build:pages
+```
+
 ## 과학 모형의 범위
 
 시료 A·B·C와 P·Q는 실제 재료명이 아닌 가상 시료입니다. 상대 감지 단계는 같은 가상 시험 장치 안의 순서만 나타내며, 실제 재료 성능·제품 등급·완전한 무음·청력 안전을 뜻하지 않습니다.
