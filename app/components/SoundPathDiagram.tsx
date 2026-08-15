@@ -17,6 +17,10 @@ export function SoundPathDiagram({
   const hasReduction = setup.reductionTreatmentId !== "none";
   const hasGap = setup.placementId === "open-gap";
   const reducedGap = setup.placementId === "reduced-gap";
+  const waveBand: ReceiverBand = record?.receiverBand ?? (setup.sourceId === "strong" ? "high" : "medium");
+  const waveDescription = record
+    ? `${receiverLabels[waveBand]} · 막대 높이로 가상 단계를 보여 줘요.`
+    : "파동이 왼쪽에서 오른쪽으로 이동하는 가상 표시예요.";
 
   return (
     <figure className="path-figure">
@@ -24,7 +28,12 @@ export function SoundPathDiagram({
         <strong>{label}</strong>
         <span>{setupLabels.sourceId[setup.sourceId]}</span>
       </figcaption>
-      <div className={active ? "apparatus is-active" : "apparatus"}>
+      <div
+        className={active ? "apparatus is-active" : "apparatus"}
+        data-wave-band={waveBand}
+        role="img"
+        aria-label={`${label}. ${waveDescription}`}
+      >
         <div className="apparatus-source">
           <span className="source-core" />
           <span className="vibration-ring ring-one" />
@@ -32,7 +41,11 @@ export function SoundPathDiagram({
           <small>소리원</small>
         </div>
         <div className="apparatus-route" aria-hidden="true">
-          {Array.from({ length: 11 }, (_, index) => <span key={index} />)}
+          <div className="wave-rail">
+            {Array.from({ length: 13 }, (_, index) => (
+              <span className="wave-particle" style={{ animationDelay: `${index * 80}ms` }} key={index} />
+            ))}
+          </div>
         </div>
         <div className={`path-sample pattern-${setup.pathSampleId}`}>
           <strong>{setupLabels.pathSampleId[setup.pathSampleId]}</strong>
@@ -51,6 +64,10 @@ export function SoundPathDiagram({
           <small>수신기</small>
         </div>
       </div>
+      <div className="wave-readout" aria-live="polite">
+        <span className="wave-readout-swatch" aria-hidden="true" />
+        <span>{waveDescription}</span>
+      </div>
       {record && (
         <p className="path-text">
           <strong>전달 경로:</strong> {record.activePathSegments.join(" → ")}
@@ -67,7 +84,7 @@ export function ReceiverMeter({ band }: { band: ReceiverBand }) {
     <aside className="receiver-panel" aria-label={`받은 소리 결과: ${receiverLabels[band]}`}>
       <h3>받은 소리 결과</h3>
       <strong>{receiverLabels[band]}</strong>
-      <div className="receiver-meter" aria-hidden="true">
+      <div className="receiver-meter" data-band={band} aria-hidden="true">
         {order.map((item, index) => (
           <span className={index >= activeIndex ? "filled" : ""} key={item} />
         ))}

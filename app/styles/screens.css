@@ -3,14 +3,24 @@
 .hero-copy h1 { margin: 0; max-width: 680px; font-size: clamp(2.35rem, 5.4vw, 4.5rem); line-height: 1.05; letter-spacing: -0.065em; }
 .hero-copy p { max-width: 600px; margin: 24px 0 0; color: var(--gray-650); font-size: 1.12rem; line-height: 1.75; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-.hero-apparatus { position: relative; min-height: 360px; overflow: hidden; border: 1px solid var(--gray-200); border-radius: 30px; background: var(--white); box-shadow: var(--shadow); }
+.hero-apparatus { position: relative; min-height: 360px; overflow: hidden; border: 1px solid var(--gray-200); border-radius: 30px; background: linear-gradient(180deg, rgba(230, 249, 251, 0.58), var(--white) 72%); box-shadow: var(--shadow); isolation: isolate; }
+.hero-apparatus::before { content: ""; position: absolute; inset: 24px 9% auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(33, 128, 161, 0.28), transparent); }
 .hero-apparatus::after { content: ""; position: absolute; left: 8%; right: 8%; bottom: 84px; height: 8px; border-radius: 4px; background: var(--gray-200); }
 .hero-source, .hero-receiver { position: absolute; bottom: 93px; width: 70px; height: 86px; border: 4px solid var(--navy-800); background: var(--white); }
 .hero-source { left: 8%; border-radius: 50% 50% 12px 12px; }
 .hero-source span, .hero-receiver span { position: absolute; inset: 18px; border: 8px solid var(--gray-200); border-radius: 50%; background: var(--teal-500); }
 .hero-receiver { right: 7%; border-radius: 14px; }
-.hero-path { position: absolute; left: 18%; right: 17%; bottom: 130px; display: flex; justify-content: space-around; }
-.hero-path span { width: 9px; height: 9px; border-radius: 50%; background: var(--teal-500); }
+.hero-path { position: absolute; left: 18%; right: 17%; bottom: 113px; display: flex; align-items: center; justify-content: space-around; height: 34px; }
+.hero-path::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; border-radius: 999px; background: linear-gradient(90deg, transparent, rgba(38, 163, 181, 0.42), transparent); }
+.hero-path span { position: relative; z-index: 1; width: 5px; height: 16px; border-radius: 999px; background: var(--teal-500); opacity: 0.72; transform-origin: center; animation: heroWave 1.3s ease-in-out infinite; }
+.hero-path span:nth-child(2) { height: 24px; animation-delay: 100ms; }
+.hero-path span:nth-child(3) { height: 12px; animation-delay: 200ms; }
+.hero-path span:nth-child(4) { height: 28px; animation-delay: 300ms; }
+.hero-path span:nth-child(5) { height: 18px; animation-delay: 400ms; }
+.hero-path span:nth-child(6) { height: 22px; animation-delay: 500ms; }
+.hero-path span:nth-child(7) { height: 14px; animation-delay: 600ms; }
+.hero-path span:nth-child(8) { height: 26px; animation-delay: 700ms; }
+.hero-path span:nth-child(9) { height: 16px; animation-delay: 800ms; }
 .hero-sample, .hero-reduction { position: absolute; bottom: 101px; display: grid; place-items: center; border: 3px solid var(--navy-800); color: var(--navy-950); font-weight: 900; }
 .hero-sample { left: 29%; width: 30%; height: 60px; background: repeating-linear-gradient(135deg, var(--cyan-100), var(--cyan-100) 8px, #c4e9f5 8px, #c4e9f5 11px); }
 .hero-reduction { right: 28%; width: 72px; height: 132px; background: radial-gradient(var(--apricot-500) 1px, var(--apricot-100) 1px); background-size: 8px 8px; }
@@ -55,3 +65,5 @@
 .record-evidence-list li + li { margin-top: 4px; }
 .final-screen .model-note { margin-top: 22px; }
 .final-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
+
+@keyframes heroWave { 0%, 100% { opacity: 0.3; transform: scaleY(0.58); } 50% { opacity: 1; transform: scaleY(1.1); } }

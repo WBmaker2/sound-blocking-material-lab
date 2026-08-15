@@ -83,6 +83,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  .gi-pulse, .hero-path span, .wave-particle { animation: none !important; }
   .is-active .vibration-ring { opacity: 0.45; transform: scale(1.12); }
   .is-active .apparatus-route span { opacity: 1; transform: none; }
 }

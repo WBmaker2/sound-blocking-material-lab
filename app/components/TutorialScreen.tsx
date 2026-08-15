@@ -28,7 +28,7 @@ export function TutorialScreen({ vibrating, onToggle, onContinue }: TutorialScre
             <strong>{vibrating ? "소리원이 떨림 중이에요" : "소리원이 멈춰 있어요"}</strong>
             <p>{vibrating ? "소리의 떨림이 길을 따라 움직이기 시작했어요." : "아직 소리의 떨림이 시작되지 않았어요."}</p>
           </div>
-          <button className="secondary-button" type="button" onClick={onToggle}>
+          <button className={vibrating ? "secondary-button" : "secondary-button gi-pulse"} type="button" onClick={onToggle}>
             {vibrating ? "떨림 멈추기" : "떨림 시작"}
           </button>
         </div>
@@ -38,7 +38,7 @@ export function TutorialScreen({ vibrating, onToggle, onContinue }: TutorialScre
       <aside className="model-note">
         이 모형에서는 소리원이 떨려야 소리의 길이 보여요. 실제 물체를 살펴본 결과는 아니에요.
       </aside>
-      <button className="primary-button" type="button" disabled={!vibrating} onClick={onContinue}>
+      <button className="primary-button gi-pulse" type="button" disabled={!vibrating} onClick={onContinue}>
         미션 1 시작
       </button>
     </main>

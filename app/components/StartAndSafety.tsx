@@ -13,7 +13,7 @@ export function StartScreen({ onStart }: StartScreenProps) {
             지나 수신기에 닿는지 살펴봐요.
           </p>
           <div className="hero-actions">
-            <button className="primary-button" type="button" onClick={onStart}>
+            <button className="primary-button gi-pulse" type="button" onClick={onStart}>
               연구 시작
             </button>
             <button className="secondary-button" type="button" onClick={onStart}>
@@ -24,7 +24,9 @@ export function StartScreen({ onStart }: StartScreenProps) {
 
         <div className="hero-apparatus" aria-label="가상 시험 장치 미리 보기">
           <div className="hero-source"><span /></div>
-          <div className="hero-path"><span /><span /><span /><span /><span /></div>
+          <div className="hero-path" aria-hidden="true">
+            {Array.from({ length: 9 }, (_, index) => <span key={index} />)}
+          </div>
           <div className="hero-sample">A</div>
           <div className="hero-reduction">Q</div>
           <div className="hero-receiver"><span /></div>
@@ -91,7 +93,7 @@ export function SafetyScreen({ checked, onToggle, onContinue }: SafetyScreenProp
         ))}
       </div>
       <button
-        className="primary-button"
+        className="primary-button gi-pulse"
         type="button"
         disabled={!checked.every(Boolean)}
         onClick={onContinue}

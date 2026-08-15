@@ -114,7 +114,7 @@ export function MissionWorkspace(props: MissionWorkspaceProps) {
                 ) : guardMessage}
               </p>
             )}
-            <button className="primary-button" type="button" disabled={!canContinueSetup} onClick={props.onContinueSetup}>
+            <button className="primary-button gi-pulse" type="button" disabled={!canContinueSetup} onClick={props.onContinueSetup}>
               예측하러 가기
             </button>
           </div>
@@ -149,7 +149,7 @@ export function MissionWorkspace(props: MissionWorkspaceProps) {
               ))}
             </fieldset>
             <p className="neutral-note">예측은 점수가 아니에요. 결과와 비교할 첫 생각이에요.</p>
-            <button className="primary-button" type="button" disabled={!prediction} onClick={props.onReveal}>
+            <button className="primary-button gi-pulse" type="button" disabled={!prediction} onClick={props.onReveal}>
               가상 시험 보기
             </button>
           </div>
@@ -181,7 +181,7 @@ export function MissionWorkspace(props: MissionWorkspaceProps) {
             <div><span>달라진 결과</span><strong>{predictionLabels[result]}</strong></div>
           </div>
           <aside className="model-note">화면의 파동 표시는 소리가 전달되는 길을 이해하기 위한 가상 표시예요.</aside>
-          <button className="primary-button" type="button" onClick={props.onOpenEvidence}>결과와 근거 비교하기</button>
+          <button className="primary-button gi-pulse" type="button" onClick={props.onOpenEvidence}>결과와 근거 비교하기</button>
         </section>
       )}
 
@@ -221,7 +221,7 @@ export function MissionWorkspace(props: MissionWorkspaceProps) {
               {prediction === result ? "예측과 결과가 같았어요. 이제 남은 경로까지 근거로 연결했어요." : "예상과 달라도 괜찮아요. 남아 있는 경로를 보고 근거를 다시 살폈어요."}
             </p>
           )}
-          <button className="primary-button" type="button" disabled={!evidenceComplete || !limitChecked} onClick={props.onComplete}>
+          <button className="primary-button gi-pulse" type="button" disabled={!evidenceComplete || !limitChecked} onClick={props.onComplete}>
             {props.completeLabel}
           </button>
         </section>

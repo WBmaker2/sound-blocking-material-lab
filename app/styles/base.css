@@ -78,6 +78,7 @@ button:disabled { cursor: not-allowed; opacity: 0.48; }
 .secondary-button { border: 1px solid var(--navy-650); background: var(--white); color: var(--navy-650); }
 .danger-button { min-height: 48px; border: 1px solid var(--danger); border-radius: 12px; background: var(--danger); color: var(--white); padding: 12px 22px; font-weight: 800; cursor: pointer; }
 .text-button { background: transparent; }
+.gi-pulse { animation: giAura 2.4s ease-in-out infinite; }
 
 .section-heading { max-width: 820px; margin: 0 auto 34px; text-align: center; }
 .section-heading.compact { margin-bottom: 24px; }
@@ -99,3 +100,8 @@ button:disabled { cursor: not-allowed; opacity: 0.48; }
 .update-list p { margin: 0; color: var(--gray-650); font-size: 0.86rem; }
 .restart-dialog-copy p { margin: 14px 0 0; color: var(--gray-650); }
 .restart-dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 26px; }
+
+@keyframes giAura {
+  0%, 100% { box-shadow: 0 8px 20px rgba(21, 94, 162, 0.16), 0 0 0 0 rgba(38, 163, 181, 0); }
+  50% { box-shadow: 0 10px 24px rgba(21, 94, 162, 0.22), 0 0 0 8px rgba(38, 163, 181, 0.16); }
+}

@@ -102,6 +102,8 @@ describe("소리 차단 재료 연구소", () => {
     expect(
       screen.getAllByText(/떨리는 소리원 → 전달 시료 A/).length,
     ).toBeGreaterThan(0);
+    expect([...document.querySelectorAll(".apparatus.is-active")].map((node) => node.getAttribute("data-wave-band"))).toEqual(["low", "high"]);
+    expect(document.querySelectorAll(".wave-particle")).toHaveLength(26);
     expect(
       screen.getByText("① 기준 보기 → ② 비교 보기 → ③ 달라진 점 확인"),
     ).toBeInTheDocument();
@@ -150,7 +152,7 @@ describe("소리 차단 재료 연구소", () => {
     ).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "업데이트 내역" }));
-    expect(screen.getByText("2026-07-18")).toBeInTheDocument();
+    expect(screen.getByText("2026-08-15")).toBeInTheDocument();
   });
 
   it("새 화면과 비교 단계로 이동할 때 맨 위로 스크롤한다", () => {
