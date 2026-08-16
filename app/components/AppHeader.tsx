@@ -5,6 +5,7 @@ type AppHeaderProps = {
   onOpenGuide: () => void;
   onOpenTeacher: () => void;
   onOpenUpdates: () => void;
+  onGoHome: () => void;
   onRestart: () => void;
 };
 
@@ -15,6 +16,7 @@ export function AppHeader({
   onOpenGuide,
   onOpenTeacher,
   onOpenUpdates,
+  onGoHome,
   onRestart,
 }: AppHeaderProps) {
   return (
@@ -50,7 +52,8 @@ export function AppHeader({
         </div>
       </div>
 
-      <nav className="utility-nav" aria-label="도움말 메뉴">
+      <nav className="utility-nav" aria-label="도움말 및 이동 메뉴">
+        <button type="button" aria-label="홈 화면으로 이동" onClick={onGoHome}>홈 화면</button>
         <button type="button" onClick={onOpenGuide}>활동 방법</button>
         <button type="button" onClick={onOpenTeacher}>교사용</button>
         <button type="button" onClick={onOpenUpdates}>업데이트 내역</button>

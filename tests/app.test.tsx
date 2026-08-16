@@ -19,7 +19,7 @@ function enterFirstEvidenceStage() {
     screen.getByRole("radio", { name: /큰 떨림으로 바꾸기/ }),
   );
   fireEvent.click(screen.getByRole("button", { name: "먼저 생각하기" }));
-  fireEvent.click(screen.getByRole("radio", { name: "높아짐" }));
+  fireEvent.click(screen.getByRole("radio", { name: "커짐" }));
   fireEvent.click(screen.getByRole("button", { name: "모형 실험 보기" }));
   fireEvent.click(
     screen.getByRole("button", { name: "결과와 왜 그런지 살펴보기" }),
@@ -96,7 +96,7 @@ describe("소리 차단 재료 연구소", () => {
     fireEvent.click(screen.getByRole("button", { name: "먼저 생각하기" }));
 
     expect(screen.queryByText("크게 표시됨")).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("radio", { name: "높아짐" }));
+    fireEvent.click(screen.getByRole("radio", { name: "커짐" }));
     fireEvent.click(screen.getByRole("button", { name: "모형 실험 보기" }));
     expect(screen.getAllByText("크게 표시됨").length).toBeGreaterThan(0);
     expect(
@@ -148,10 +148,11 @@ describe("소리 차단 재료 연구소", () => {
     fireEvent.click(screen.getByRole("button", { name: "먼저 생각하기" }));
 
     expect(
-      screen.getByRole("heading", { name: "소리 받는 곳의 크기는 어떻게 될까요?" }),
+      screen.getByRole("heading", { name: "소리 받는 곳의 크기 표시는 어떻게 될까요?" }),
     ).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "업데이트 내역" }));
+    expect(screen.getByText("2026-08-16")).toBeInTheDocument();
     expect(screen.getAllByText("2026-08-15")).toHaveLength(2);
   });
 
@@ -195,6 +196,15 @@ describe("소리 차단 재료 연구소", () => {
         name: "소리가 지나가는 길을 찾아봐요",
       }),
     ).toBeInTheDocument();
+  });
+
+  it("헤더의 홈 화면 버튼으로 처음 화면 이동을 확인한다", () => {
+    render(<SoundLabApp />);
+    enterFirstMission();
+
+    fireEvent.click(screen.getByRole("button", { name: "홈 화면으로 이동" }));
+
+    expect(screen.getByRole("dialog", { name: "처음부터 다시 할까요?" })).toBeInTheDocument();
   });
 
   it("비교 단계가 진행될 때 진행률 값이 증가한다", () => {

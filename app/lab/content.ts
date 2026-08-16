@@ -169,10 +169,10 @@ export const receiverLabels: Record<ReceiverBand, string> = {
   "very-high": "아주 크게 표시됨",
 };
 
-export const predictionLabels = {
-  lower: "낮아짐",
+export const sizeChangeLabels = {
+  lower: "작아짐",
   same: "같음",
-  higher: "높아짐",
+  higher: "커짐",
 } as const;
 
 export const missions: Mission[] = [
@@ -180,20 +180,20 @@ export const missions: Mission[] = [
     id: "source-strength-one-variable",
     number: 1,
     title: "같은 길, 다른 떨림",
-    focus: "높낮이와 길은 그대로 두고, 소리 내는 곳의 떨림만 바꿔요.",
-    fixedConditions: ["같은 높낮이", "재료 모형 A", "덧댄 모형 없음", "붙여 놓기"],
+    focus: "소리의 높낮이와 길은 그대로 두고, 소리 내는 곳의 떨림 크기만 바꿔요.",
+    fixedConditions: ["같은 소리 높낮이", "재료 모형 A", "덧댄 모형 없음", "붙여 놓기"],
     steps: [
       {
         id: "source-strength",
         title: "소리 내는 곳 하나만 바꾸기",
-        question: "큰 떨림으로 바꾸면 소리 받는 곳의 크기는 어떻게 될까요?",
+        question: "큰 떨림으로 바꾸면 소리 받는 곳의 크기 표시는 어떻게 달라질까요?",
         baseline: { sourceId: "weak", pathSampleId: "sample-a", reductionTreatmentId: "none", placementId: "standard" },
         allowedVariable: "sourceId",
         options: [
           { id: "strong-only", label: "큰 떨림으로 바꾸기", description: "소리 내는 곳만 바꿔요.", setup: { sourceId: "strong", pathSampleId: "sample-a", reductionTreatmentId: "none", placementId: "standard" } },
           { id: "two-at-once", label: "큰 떨림과 재료 모형 B 함께 바꾸기", description: "두 가지를 바꾸면 무엇 때문인지 알기 어려워요.", setup: { sourceId: "strong", pathSampleId: "sample-b", reductionTreatmentId: "none", placementId: "standard" }, teachingTrap: true },
         ],
-        evidenceOptions: ["소리 내는 곳의 떨림만 달라졌어요.", "높낮이와 길은 그대로예요."],
+        evidenceOptions: ["소리 내는 곳의 떨림 크기만 달라졌어요.", "소리의 높낮이와 길은 그대로예요."],
       },
     ],
   },
@@ -295,6 +295,11 @@ export const missions: Mission[] = [
 ];
 
 export const updateHistory = [
+  {
+    date: "2026-08-16",
+    title: "홈 화면과 소리 크기 표현 개선",
+    detail: "헤더에 홈 화면 버튼을 넣고, 음높이와 소리 크기를 헷갈리지 않도록 예측·결과 표현을 고쳤어요.",
+  },
   {
     date: "2026-08-15",
     title: "초등학생용 쉬운 말과 안내 문장 개선",

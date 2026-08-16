@@ -16,8 +16,8 @@
   .brand-button { grid-column: 1; grid-row: 1; min-width: 0; width: auto; }
   .brand-button > span:last-child { min-width: 0; }
   .brand-button small { font-size: 0.72rem; }
-  .utility-nav { display: grid; grid-column: 1 / -1; grid-row: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); justify-content: stretch; gap: 6px; }
-  .utility-nav button { min-width: 0; padding-inline: 6px; font-size: 0.875rem; white-space: nowrap; }
+  .utility-nav { display: grid; grid-column: 1 / -1; grid-row: 2; grid-template-columns: repeat(4, minmax(0, 1fr)); justify-content: stretch; gap: 6px; }
+  .utility-nav button { min-width: 0; padding-inline: 4px; font-size: clamp(0.68rem, 2.8vw, 0.78rem); white-space: nowrap; }
   .header-progress { grid-column: 2; grid-row: 1; justify-self: end; gap: 7px; width: min(118px, 32vw); font-size: 0.76rem; }
   .progress-divider { height: 18px; }
   .start-screen, .safety-screen, .tutorial-screen, .final-screen, .mission-screen { width: min(100% - 24px, 100%); padding-top: 32px; }

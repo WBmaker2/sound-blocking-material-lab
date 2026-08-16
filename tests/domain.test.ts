@@ -74,7 +74,7 @@ describe("검수된 가상 시험 조회", () => {
     ).toThrowError(/허용된 모형 조합 기록이 없어요/);
   });
 
-  it("상대 단계는 낮아짐·같음·높아짐으로만 비교한다", () => {
+  it("상대 크기 변화는 작아짐·같음·커짐으로만 비교한다", () => {
     expect(compareReceiverBands("high", "low")).toBe("lower");
     expect(compareReceiverBands("low", "low")).toBe("same");
     expect(compareReceiverBands("low", "high")).toBe("higher");

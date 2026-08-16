@@ -1,4 +1,4 @@
-import { predictionLabels } from "../lab/content";
+import { sizeChangeLabels } from "../lab/content";
 import type { MissionRecord } from "../lab/types";
 
 type FinalRecordProps = {
@@ -41,8 +41,8 @@ export function FinalRecord({ records, onRepeat, onSafety, onRestart }: FinalRec
               <tr key={`${record.missionId}-${index}`}>
                 <th scope="row">{record.missionTitle}</th>
                 <td data-label="바꾼 것">{record.changedLabel}</td>
-                <td data-label="먼저 생각한 것">{predictionLabels[record.prediction]}</td>
-                <td data-label="결과">{predictionLabels[record.result]}</td>
+                <td data-label="먼저 생각한 것">{sizeChangeLabels[record.prediction]}</td>
+                <td data-label="결과">{sizeChangeLabels[record.result]}</td>
                 <td data-label="남은 길">{record.remainingPath}</td>
                 <td data-label="찾은 단서">
                   <ul className="record-evidence-list">
@@ -56,7 +56,7 @@ export function FinalRecord({ records, onRepeat, onSafety, onRestart }: FinalRec
       </div>
 
       <aside className="model-note">
-        이 컴퓨터 모형에서는 소리 표시가 작아졌지만 완전한 무음이나 실제 안전을 뜻하지 않아요.
+        이 컴퓨터 모형에서는 소리 크기 표시가 작아졌지만 완전한 무음이나 실제 안전을 뜻하지 않아요.
       </aside>
       <div className="final-actions">
         <button className="primary-button gi-pulse" type="button" onClick={onRepeat}>같은 활동 다시 하기</button>

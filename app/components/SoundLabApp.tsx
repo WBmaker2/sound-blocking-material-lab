@@ -186,6 +186,7 @@ export function SoundLabApp() {
         onOpenGuide={() => setDialog("guide")}
         onOpenTeacher={() => setDialog("teacher")}
         onOpenUpdates={() => setDialog("updates")}
+        onGoHome={requestRestart}
         onRestart={requestRestart}
       />
 

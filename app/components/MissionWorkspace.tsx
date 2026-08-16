@@ -1,4 +1,4 @@
-import { predictionLabels, receiverLabels } from "../lab/content";
+import { receiverLabels, sizeChangeLabels } from "../lab/content";
 import { variableLabel } from "../lab/domain";
 import type {
   Mission,
@@ -131,20 +131,20 @@ export function MissionWorkspace(props: MissionWorkspaceProps) {
           <SetupComparison baseline={step.baseline} comparison={selectedOption.setup} />
           <div className="prediction-panel">
             <p className="step-label">결과를 보기 전 먼저 생각하기</p>
-            <h2 id="prediction-title">소리 받는 곳의 크기는 어떻게 될까요?</h2>
+            <h2 id="prediction-title">소리 받는 곳의 크기 표시는 어떻게 될까요?</h2>
             <fieldset className="prediction-options">
-              <legend>먼저 생각한 답 고르기</legend>
+              <legend>소리 크기 표시의 변화 고르기</legend>
               {(["lower", "same", "higher"] as Prediction[]).map((item) => (
                 <label className={prediction === item ? "prediction-card selected" : "prediction-card"} key={item}>
                   <input
                     type="radio"
                     name="prediction"
-                    aria-label={predictionLabels[item]}
+                    aria-label={sizeChangeLabels[item]}
                     checked={prediction === item}
                     onChange={() => props.onPrediction(item)}
                   />
-                  <strong>{predictionLabels[item]}</strong>
-                  <small>{item === "lower" ? "더 작을 것 같아요" : item === "higher" ? "더 클 것 같아요" : "비슷할 것 같아요"}</small>
+                  <strong>{sizeChangeLabels[item]}</strong>
+                  <small>{item === "lower" ? "소리 크기 표시가 더 작을 것 같아요" : item === "higher" ? "소리 크기 표시가 더 클 것 같아요" : "소리 크기 표시가 비슷할 것 같아요"}</small>
                 </label>
               ))}
             </fieldset>
@@ -178,7 +178,7 @@ export function MissionWorkspace(props: MissionWorkspaceProps) {
             <div><span>바꾼 것 1개</span><strong>{variableLabel(changedVariable ?? step.allowedVariable)}</strong></div>
             <div><span>처음 결과</span><strong>{receiverLabels[baselineRecord.receiverBand]}</strong></div>
             <div><span>바꾼 뒤 결과</span><strong>{receiverLabels[comparisonRecord.receiverBand]}</strong></div>
-            <div><span>달라진 정도</span><strong>{predictionLabels[result]}</strong></div>
+            <div><span>소리 크기 변화</span><strong>{sizeChangeLabels[result]}</strong></div>
           </div>
           <aside className="model-note">파동 막대는 소리가 지나가는 길을 이해하기 위한 컴퓨터 모형 표시예요.</aside>
           <button className="primary-button gi-pulse" type="button" onClick={props.onOpenEvidence}>결과와 왜 그런지 살펴보기</button>
@@ -195,7 +195,7 @@ export function MissionWorkspace(props: MissionWorkspaceProps) {
             <div><span>바뀐 것 1개</span><strong>{variableLabel(changedVariable ?? step.allowedVariable)}</strong></div>
             <div><span>그대로 둔 것 3개</span><strong>높낮이·거리·다른 약속</strong></div>
             <div><span>남아 있는 길</span><strong>{comparisonRecord.openGapIds.length ? "열린 틈이 남아 있어요" : "재료 모형을 지나는 길이 남아 있어요"}</strong></div>
-            <div><span>달라진 정도</span><strong>{predictionLabels[result]}</strong></div>
+            <div><span>소리 크기 변화</span><strong>{sizeChangeLabels[result]}</strong></div>
           </div>
           <fieldset className="evidence-options">
             <legend>맞는 단서 모두 고르기</legend>
